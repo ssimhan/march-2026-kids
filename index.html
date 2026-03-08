@@ -606,6 +606,13 @@
   <div class="page-body">
     <div id="schedule-root"></div>
     <div id="summary-root" class="hidden"></div>
+    <div id="admin-actions" class="hidden"
+      style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px; text-align: center;">
+      <button onclick="resetData()"
+        style="background: none; border: 1px solid #ccc; color: #888; padding: 8px 16px; border-radius: 6px; font-size: 0.7rem; cursor: pointer;">
+        Discard Browser Edits & Sync with GitHub
+      </button>
+    </div>
   </div>
 
   <div class="toast" id="toast"></div>
@@ -1234,17 +1241,28 @@
       const scheduleRoot = document.getElementById('schedule-root');
       const summaryRoot = document.getElementById('summary-root');
 
+      const adminActions = document.getElementById('admin-actions');
+
       if (view === 'schedule') {
         scheduleTab.classList.add('active');
         summaryTab.classList.remove('active');
         scheduleRoot.classList.remove('hidden');
         summaryRoot.classList.add('hidden');
+        adminActions.classList.add('hidden');
       } else {
         summaryTab.classList.add('active');
         scheduleTab.classList.remove('active');
         summaryRoot.classList.remove('hidden');
         scheduleRoot.classList.add('hidden');
+        adminActions.classList.remove('hidden');
         renderSummary(); // Refresh stats when switching
+      }
+    }
+
+    function resetData() {
+      if (confirm("This will discard any local changes you've made in this browser and sync back to the official GitHub version. Continue?")) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
       }
     }
 
