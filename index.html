@@ -706,12 +706,12 @@
 
       {
         label: "Tuesday", date: "Mar 17", group: "week2", badge: "🌸 Break",
-        conflicts: ["Akira back by 4:45 for Piano — coordinate outing end time", "5:30 Akira + 5:50 Anya — 2 pickups close together"],
+        conflicts: [],
         events: [
           { time: "~1pm", kid: "akira", route: "Outing", driver: null, note: "Back by 4:45" },
-          { time: "5:00", kid: "akira", route: "Home → Piano", driver: null },
-          { time: "5:30", kid: "akira", route: "Piano → Home", driver: null, conflict: true },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null, conflict: true },
+          { time: "5:00", kid: "akira", route: "Home → Piano", driver: "Sandhya" },
+          { time: "5:30", kid: "akira", route: "Piano → Home", driver: "Sandhya" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
         ]
       },
 
