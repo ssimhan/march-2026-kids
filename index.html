@@ -742,7 +742,8 @@
         events: [
           { time: "~1pm", kid: "akira", route: "Outing", driver: null },
           { time: "5:15", kid: "akira", route: "Home → Singing", driver: "Sandhya", note: "Sandhya stays for class" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "TBD" },
+          { time: "Evening", kid: "akira", route: "Drop off for sleepover", driver: "Bravishma" },
         ]
       },
 
@@ -967,29 +968,6 @@
           bar.textContent = '⚠ ' + c;
           card.appendChild(bar);
         });
-      }
-
-      // Weekend / empty
-      if (day.weekend || !day.events.length) {
-        const empty = document.createElement('div');
-        empty.className = 'day-empty';
-        empty.textContent = day.weekend ? 'No pickups or drop-offs' : 'Nothing scheduled';
-        card.appendChild(empty);
-
-        // Even for weekends / empty, allow adding events
-        if (!day.weekend) {
-          const addRow = document.createElement('div');
-          addRow.style.cssText = 'display:flex;';
-          ['anya', 'akira'].forEach(kid => {
-            const btn = document.createElement('button');
-            btn.className = 'add-event-btn';
-            btn.innerHTML = `＋ Add ${kid === 'anya' ? 'Anya' : 'Akira'} event`;
-            btn.addEventListener('click', () => addEvent(dayIndex, kid));
-            addRow.appendChild(btn);
-          });
-          card.appendChild(addRow);
-        }
-        return card;
       }
 
       // Two-column layout: Anya | Akira
