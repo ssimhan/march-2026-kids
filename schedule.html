@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Schedule · Mar 8–22</title>
+  <style>
+    :root {
+      --akira: #2A9D8F;
+      --akira-lt: #E8F7F5;
+      --anya: #5B6EBF;
+      --anya-lt: #ECEFFE;
+      --conflict: #C0392B;
+      --conflict-lt: #FDECEA;
+      --dark: #1C2B33;
+      --gray: #888;
+      --border: #DDE3E8;
+      --lt-gray: #F5F7F8;
+      --font: 'Segoe UI', system-ui, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background: #E8EDF0;
+      color: var(--dark);
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--dark);
+      color: white;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .nav-tab {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-tab:hover {
+      color: white;
+    }
+
+    .nav-tab.active {
+      background: white;
+      color: var(--dark);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .driver-card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 15px;
+    }
+
+    .driver-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--lt-gray);
+      padding-bottom: 8px;
+    }
+
+    .shift-count {
+      background: var(--akira-lt);
+      color: var(--akira);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+    }
+
+    .shift-item {
+      font-size: 0.75rem;
+      margin-bottom: 8px;
+      padding-left: 8px;
+      border-left: 2px solid var(--lt-gray);
+    }
+
+    .shift-date {
+      font-weight: 700;
+      color: var(--gray);
+    }
+
+    .shift-detail {
+      display: block;
+      margin-top: 2px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .page-header h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .page-header p {
+      font-size: 0.78rem;
+      opacity: 0.55;
+      margin-top: 2px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, .7);
+    }
+
+    .legend-swatch {
+      width: 18px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    /* BODY */
+    .page-body {
+      padding: 20px 28px;
+      max-width: 860px;
+    }
+
+    /* WEEK HEADING */
+    .week-heading {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin: 28px 0 8px;
+    }
+
+    .week-heading:first-child {
+      margin-top: 0;
+    }
+
+    /* DAY CARD — full width, one per row */
+    .day-card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+
+    .day-card.has-conflict {
+      border-color: #e8a09a;
+    }
+
+    .day-card.is-weekend {
+      opacity: 0.45;
+    }
+
+    /* Day header */
+    .day-header {
+      background: var(--dark);
+      color: white;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .day-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      min-width: 90px;
+    }
+
+    .day-date {
+      font-size: 0.78rem;
+      opacity: 0.55;
+    }
+
+    .day-badge {
+      margin-left: auto;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: var(--akira);
+      color: white;
+    }
+
+    /* Conflict bar */
+    .conflict-bar {
+      background: var(--conflict-lt);
+      border-bottom: 1px solid #f5c0bc;
+      padding: 4px 14px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--conflict);
+    }
+
+    /* Two-column layout inside each card */
+    .event-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .event-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-col.col-anya {
+      border-right: 1px solid var(--border);
+    }
+
+    .col-header {
+      padding: 5px 14px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .col-header.anya {
+      color: var(--anya);
+      background: var(--anya-lt);
+    }
+
+    .col-header.akira {
+      color: var(--akira);
+      background: var(--akira-lt);
+    }
+
+    .event {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 3px;
+      position: relative;
+    }
+
+    .event:last-child {
+      border-bottom: none;
+    }
+
+    /* left accent per kid */
+    .event.akira {
+      border-left: 3px solid var(--akira);
+    }
+
+    .event.anya {
+      border-left: 3px solid var(--anya);
+    }
+
+    .event.conflict {
+      border-left: 3px solid var(--conflict);
+      background: var(--conflict-lt);
+    }
+
+    .event-time {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gray);
+    }
+
+    .event-route {
+      font-size: 0.82rem;
+      line-height: 1.3;
+    }
+
+    .who {
+      font-weight: 700;
+    }
+
+    .who-akira {
+      color: var(--akira);
+    }
+
+    .who-anya {
+      color: var(--anya);
+    }
+
+    .arrow {
+      color: #bbb;
+      margin: 0 3px;
+    }
+
+    .event-driver {
+      font-size: 0.68rem;
+      margin-top: 1px;
+    }
+
+    .driver-set {
+      color: var(--akira);
+      font-weight: 600;
+    }
+
+    .driver-needs-help {
+      background: #FF3B30;
+      color: white !important;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 800;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .driver-tbd {
+      color: #bbb;
+      font-style: italic;
+      border: 1px dashed #ddd;
+      border-radius: 6px;
+      padding: 1px 6px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .driver-tbd:hover {
+      background: var(--lt-gray);
+    }
+
+    .event-note {
+      font-size: 0.67rem;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    .day-empty {
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      color: #ccc;
+      font-style: italic;
+    }
+
+    /* ─── INTERACTIVE ADDITIONS ─────────────────────────────────────────────── */
+
+    /* Editable field hover cues */
+    .editable {
+      cursor: pointer;
+      border-bottom: 1px dashed transparent;
+      transition: border-color 0.15s, background 0.15s;
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+
+    .editable:hover {
+      border-bottom-color: var(--akira);
+      background: rgba(42, 157, 143, 0.06);
+    }
+
+    /* Inline input */
+    .inline-input {
+      font-family: var(--font);
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      border: 1px solid var(--akira);
+      border-radius: 4px;
+      padding: 1px 4px;
+      outline: none;
+      background: white;
+      box-shadow: 0 0 0 2px rgba(42, 157, 143, 0.15);
+    }
+
+    .inline-input:focus {
+      border-color: var(--akira);
+    }
+
+    .inline-input.time-input {
+      width: 52px;
+    }
+
+    .inline-input.route-input {
+      width: 90px;
+    }
+
+    .inline-input.note-input {
+      width: 140px;
+      font-style: italic;
+    }
+
+    /* Driver dropdown */
+    .driver-picker {
+      position: absolute;
+      z-index: 100;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      min-width: 170px;
+      overflow: hidden;
+      animation: dropIn 0.12s ease-out;
+    }
+
+    @keyframes dropIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .driver-picker-item {
+      padding: 7px 14px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background 0.1s;
+      border-bottom: 1px solid var(--lt-gray);
+    }
+
+    .driver-picker-item:last-child {
+      border-bottom: none;
+    }
+
+    .driver-picker-item:hover {
+      background: var(--akira-lt);
+    }
+
+    .driver-picker-item.active {
+      background: var(--akira-lt);
+      font-weight: 700;
+      color: var(--akira);
+    }
+
+    .driver-picker-item.none-option {
+      color: #bbb;
+      font-style: italic;
+    }
+
+    .driver-picker-item.custom-option {
+      color: var(--anya);
+      font-style: italic;
+    }
+
+    .driver-picker-search {
+      width: 100%;
+      padding: 8px 14px;
+      font-size: 0.78rem;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      outline: none;
+      font-family: var(--font);
+    }
+
+    /* Delete button */
+    .event-delete {
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      width: 18px;
+      height: 18px;
+      border: none;
+      background: none;
+      font-size: 0.7rem;
+      color: #ccc;
+      cursor: pointer;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .event:hover .event-delete {
+      opacity: 1;
+    }
+
+    .event-delete:hover {
+      color: var(--conflict);
+      background: var(--conflict-lt);
+    }
+
+    /* Add event button */
+    .add-event-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 6px 14px;
+      font-size: 0.68rem;
+      color: #bbb;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      font-family: var(--font);
+    }
+
+    .add-event-btn:hover {
+      color: var(--akira);
+      background: var(--akira-lt);
+    }
+
+    /* Drag and Drop */
+    .event.dragging {
+      opacity: 0.4;
+      background: var(--lt-gray);
+      border: 1px dashed var(--gray);
+    }
+
+    .event-placeholder {
+      height: 2px;
+      background: var(--akira);
+      margin: 2px 0;
+      display: none;
+    }
+
+    .event.drag-over {
+      border-top: 2px solid var(--akira);
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--dark);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 200;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page-header">
+    <div>
+      <h1>📅 Family Schedule · Mar 9–22, 2026</h1>
+      <p>Sandhya handles all drop-offs · Click any field to edit</p>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab active" id="tab-schedule" onclick="switchView('schedule')">Schedule</div>
+      <div class="nav-tab" id="tab-summary" onclick="switchView('summary')">Driver Stats</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:var(--akira)"></div>Akira
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:var(--anya)"></div>Anya
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:var(--conflict)"></div>Conflict
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div id="schedule-root"></div>
+    <div id="summary-root" class="hidden"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // =============================================================================
+    //  ✏️  SCHEDULE DATA — hardcoded defaults (overridden by localStorage if present)
+    // =============================================================================
+
+    const VOLUNTEERS = [
+      "Sandhya", "Bravishma", "Swetha", "Srivats", "Sudha",
+      "Preethi Jayaraman", "Srikanth", "Preethi Srinivasan", "Vinitha"
+    ];
+
+    const WEEKS = [
+      { id: "week1", label: "Week 1 · Mar 9–13 · School week → spring break starts Friday" },
+      { id: "weekend1", label: "Weekend · Mar 14–15 · Spring break" },
+      { id: "week2", label: "Week 2 · Mar 16–20 · Spring break" },
+      { id: "weekend2", label: "Weekend · Mar 21–22 · Last days of break" },
+    ];
+
+    const DEFAULT_DAYS = [
+
+      // ── WEEK 1 ────────────────────────────────────────────────────────────────
+
+      {
+        label: "Monday", date: "Mar 9", group: "week1",
+        conflicts: [],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "8:30", kid: "akira", route: "Home → Mattos", driver: "Sandhya" },
+          { time: "TBD", kid: "akira", route: "Mattos → Home", driver: null },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null },
+          { time: "6:15", kid: "anya", route: "Home → Monday class", driver: "Sandhya" },
+        ]
+      },
+
+      {
+        label: "Tuesday", date: "Mar 10", group: "week1",
+        conflicts: ["5:30 Akira needs Piano pickup · 5:50 Anya needs school pickup — need 2 drivers"],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "8:30", kid: "akira", route: "Home → Mattos", driver: "Sandhya" },
+          { time: "4:50", kid: "akira", route: "Mattos → Piano", driver: null },
+          { time: "5:30", kid: "akira", route: "Piano → Home", driver: null, conflict: true },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null, conflict: true },
+        ]
+      },
+
+      {
+        label: "Wednesday", date: "Mar 11", group: "week1",
+        conflicts: ["5:50 both kids need pickup at the same time"],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "8:30", kid: "akira", route: "Home → Mattos", driver: "Sandhya" },
+          { time: "3:30", kid: "akira", route: "Mattos → RSM", driver: null },
+          { time: "5:50", kid: "akira", route: "RSM → Home", driver: null, conflict: true },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null, conflict: true },
+        ]
+      },
+
+      {
+        label: "Thursday", date: "Mar 12", group: "week1",
+        conflicts: ["Anya pickup at 5:50 while Akira still in Bharatanatyam until 6:15"],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "8:30", kid: "akira", route: "Home → Mattos", driver: "Sandhya" },
+          { time: "4:50", kid: "akira", route: "Mattos → Bharatanatyam", driver: null },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null, conflict: true },
+          { time: "6:15", kid: "akira", route: "Bharatanatyam → Home", driver: null },
+        ]
+      },
+
+      {
+        label: "Friday", date: "Mar 13", group: "week1", badge: "🌸 Break starts!",
+        conflicts: [],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "4:50", kid: "akira", route: "Mattos → Singing", driver: "Sandhya", note: "Sandhya stays for class" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null },
+        ]
+      },
+
+      // ── WEEKEND 1 ─────────────────────────────────────────────────────────────
+
+      { label: "Saturday", date: "Mar 14", group: "weekend1", weekend: true, conflicts: [], events: [] },
+      { label: "Sunday", date: "Mar 15", group: "weekend1", weekend: true, conflicts: [], events: [] },
+
+      // ── WEEK 2 (spring break) ─────────────────────────────────────────────────
+
+      {
+        label: "Monday", date: "Mar 16", group: "week2", badge: "🌸 Break",
+        conflicts: [],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "~1pm", kid: "akira", route: "Outing", driver: null, note: "Village volunteer" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null },
+          { time: "6:15", kid: "anya", route: "Home → Monday class", driver: "Sandhya" },
+        ]
+      },
+
+      {
+        label: "Tuesday", date: "Mar 17", group: "week2", badge: "🌸 Break",
+        conflicts: ["Akira back by 4:45 for Piano — coordinate outing end time", "5:30 Akira + 5:50 Anya — 2 pickups close together"],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "~1pm", kid: "akira", route: "Outing", driver: null, note: "Back by 4:45" },
+          { time: "5:00", kid: "akira", route: "Home → Piano", driver: null },
+          { time: "5:30", kid: "akira", route: "Piano → Home", driver: null, conflict: true },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null, conflict: true },
+        ]
+      },
+
+      {
+        label: "Wednesday", date: "Mar 18", group: "week2", badge: "🌸 Break",
+        conflicts: [],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "~1pm", kid: "akira", route: "Outing", driver: null, note: "No RSM — free all day!" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null },
+        ]
+      },
+
+      {
+        label: "Thursday", date: "Mar 19", group: "week2", badge: "🌸 Break",
+        conflicts: ["Anya pickup at 5:50 while Akira still in Bharatanatyam until 6:15"],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "~1pm", kid: "akira", route: "Outing", driver: null },
+          { time: "5:15", kid: "akira", route: "Home → Bharatanatyam", driver: null, note: "Can cancel if needed" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null, conflict: true },
+          { time: "6:15", kid: "akira", route: "Bharatanatyam → Home", driver: null },
+        ]
+      },
+
+      {
+        label: "Friday", date: "Mar 20", group: "week2", badge: "🌸 Break",
+        conflicts: [],
+        events: [
+          { time: "8:30", kid: "anya", route: "Home → Stratford", driver: "Sandhya" },
+          { time: "~1pm", kid: "akira", route: "Outing", driver: null },
+          { time: "5:15", kid: "akira", route: "Home → Singing", driver: "Sandhya", note: "Sandhya stays for class" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: null },
+        ]
+      },
+
+      // ── WEEKEND 2 ─────────────────────────────────────────────────────────────
+
+      { label: "Saturday", date: "Mar 21", group: "weekend2", weekend: true, conflicts: [], events: [] },
+      { label: "Sunday", date: "Mar 22", group: "weekend2", weekend: true, conflicts: [], events: [] },
+
+    ];
+
+    // =============================================================================
+    //  STATE & PERSISTENCE
+    // =============================================================================
+
+    const STORAGE_KEY = 'march-schedule-data';
+
+    function loadDays() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          // Migration: convert from/to -> route
+          parsed.forEach(day => {
+            if (day.events) {
+              day.events.forEach(ev => {
+                if (ev.from && ev.to && !ev.route) {
+                  ev.route = `${ev.from} → ${ev.to}`;
+                  delete ev.from;
+                  delete ev.to;
+                } else if (ev.from && !ev.route) {
+                  ev.route = ev.from;
+                  delete ev.from;
+                }
+              });
+            }
+          });
+          return parsed;
+        }
+      } catch (e) { /* ignore bad data */ }
+      return JSON.parse(JSON.stringify(DEFAULT_DAYS)); // deep clone
+    }
+
+    function saveDays() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(DAYS));
+      showToast('Saved ✓');
+    }
+
+    let DAYS = loadDays();
+
+    // =============================================================================
+    //  TOAST
+    // =============================================================================
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 1200);
+    }
+
+    // =============================================================================
+    //  CLOSE ANY OPEN PICKER
+    // =============================================================================
+
+    let activePicker = null;
+
+    function closeActivePicker() {
+      if (activePicker) {
+        activePicker.remove();
+        activePicker = null;
+      }
+    }
+
+    document.addEventListener('mousedown', (e) => {
+      if (activePicker && !activePicker.contains(e.target)) {
+        closeActivePicker();
+      }
+    });
+
+    // =============================================================================
+    //  INLINE EDITING HELPERS
+    // =============================================================================
+
+    function makeEditable(text, className, onCommit) {
+      const span = document.createElement('span');
+      span.className = (className || '') + ' editable';
+      span.textContent = text || '—';
+      span.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeActivePicker();
+        const input = document.createElement('input');
+        input.className = 'inline-input ' + (className.includes('time') ? 'time-input' : className.includes('note') ? 'note-input' : 'route-input');
+        input.value = text || '';
+        input.addEventListener('keydown', (ke) => {
+          if (ke.key === 'Enter') { ke.preventDefault(); input.blur(); }
+          if (ke.key === 'Escape') { ke.preventDefault(); span.textContent = text || '—'; input.replaceWith(span); }
+        });
+        input.addEventListener('blur', () => {
+          const newVal = input.value.trim();
+          if (newVal !== text) {
+            onCommit(newVal);
+          } else {
+            input.replaceWith(span);
+          }
+        });
+        span.replaceWith(input);
+        input.focus();
+        input.select();
+      });
+      return span;
+    }
+
+    // =============================================================================
+    //  DRIVER PICKER
+    // =============================================================================
+
+    function showDriverPicker(anchorEl, currentDriver, onSelect) {
+      closeActivePicker();
+
+      const picker = document.createElement('div');
+      picker.className = 'driver-picker';
+
+      // Position near anchor
+      const rect = anchorEl.getBoundingClientRect();
+      picker.style.position = 'fixed';
+      picker.style.left = Math.min(rect.left, window.innerWidth - 190) + 'px';
+      picker.style.top = (rect.bottom + 4) + 'px';
+
+      // Search box
+      const search = document.createElement('input');
+      search.className = 'driver-picker-search';
+      search.placeholder = 'Search or type name…';
+      search.value = '';
+      picker.appendChild(search);
+
+      const listContainer = document.createElement('div');
+      picker.appendChild(listContainer);
+
+      function renderList(filter) {
+        listContainer.innerHTML = '';
+
+        // "No driver" option
+        const noneItem = document.createElement('div');
+        noneItem.className = 'driver-picker-item none-option' + (!currentDriver ? ' active' : '');
+        noneItem.textContent = '? unassigned';
+        noneItem.addEventListener('mousedown', (e) => { e.preventDefault(); onSelect(null); closeActivePicker(); });
+        listContainer.appendChild(noneItem);
+
+        // "TBD / Help needed" option
+        const tbdItem = document.createElement('div');
+        tbdItem.className = 'driver-picker-item' + (currentDriver === 'TBD' ? ' active' : '');
+        tbdItem.style.color = '#FF3B30';
+        tbdItem.style.fontWeight = 'bold';
+        tbdItem.textContent = '🚩 TBD (Help needed)';
+        tbdItem.addEventListener('mousedown', (e) => { e.preventDefault(); onSelect('TBD'); closeActivePicker(); });
+        listContainer.appendChild(tbdItem);
+
+        const lf = (filter || '').toLowerCase();
+        VOLUNTEERS
+          .filter(v => !lf || v.toLowerCase().includes(lf))
+          .forEach(v => {
+            const item = document.createElement('div');
+            item.className = 'driver-picker-item' + (currentDriver === v ? ' active' : '');
+            item.textContent = v;
+            item.addEventListener('mousedown', (e) => { e.preventDefault(); onSelect(v); closeActivePicker(); });
+            listContainer.appendChild(item);
+          });
+
+        // If filter doesn't match any volunteer, offer to use custom text
+        if (lf && !VOLUNTEERS.some(v => v.toLowerCase().includes(lf))) {
+          const custom = document.createElement('div');
+          custom.className = 'driver-picker-item custom-option';
+          custom.textContent = `Use "${filter}"`;
+          custom.addEventListener('mousedown', (e) => { e.preventDefault(); onSelect(filter.trim()); closeActivePicker(); });
+          listContainer.appendChild(custom);
+        }
+      }
+
+      renderList('');
+      search.addEventListener('input', () => renderList(search.value));
+      search.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeActivePicker();
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const val = search.value.trim();
+          if (val) { onSelect(val); closeActivePicker(); }
+        }
+      });
+
+      document.body.appendChild(picker);
+      activePicker = picker;
+      search.focus();
+    }
+
+    // =============================================================================
+    //  RENDER
+    // =============================================================================
+
+    function buildCard(day, dayIndex) {
+      const hasConflict = day.conflicts && day.conflicts.length > 0;
+      const card = document.createElement('div');
+      card.className = 'day-card'
+        + (day.weekend ? ' is-weekend' : '')
+        + (hasConflict ? ' has-conflict' : '');
+
+      // Header
+      const hdr = document.createElement('div');
+      hdr.className = 'day-header';
+      hdr.innerHTML = `
+    <span class="day-name">${day.label}</span>
+    <span class="day-date">${day.date}</span>
+    ${day.badge ? `<span class="day-badge">${day.badge}</span>` : ''}
+  `;
+      card.appendChild(hdr);
+
+      // Conflict bars
+      if (hasConflict) {
+        day.conflicts.forEach(c => {
+          const bar = document.createElement('div');
+          bar.className = 'conflict-bar';
+          bar.textContent = '⚠ ' + c;
+          card.appendChild(bar);
+        });
+      }
+
+      // Weekend / empty
+      if (day.weekend || !day.events.length) {
+        const empty = document.createElement('div');
+        empty.className = 'day-empty';
+        empty.textContent = day.weekend ? 'No pickups or drop-offs' : 'Nothing scheduled';
+        card.appendChild(empty);
+
+        // Even for weekends / empty, allow adding events
+        if (!day.weekend) {
+          const addRow = document.createElement('div');
+          addRow.style.cssText = 'display:flex;';
+          ['anya', 'akira'].forEach(kid => {
+            const btn = document.createElement('button');
+            btn.className = 'add-event-btn';
+            btn.innerHTML = `＋ Add ${kid === 'anya' ? 'Anya' : 'Akira'} event`;
+            btn.addEventListener('click', () => addEvent(dayIndex, kid));
+            addRow.appendChild(btn);
+          });
+          card.appendChild(addRow);
+        }
+        return card;
+      }
+
+      // Two-column layout: Anya | Akira
+      const cols = document.createElement('div');
+      cols.className = 'event-cols';
+
+      ['anya', 'akira'].forEach(kid => {
+        const col = document.createElement('div');
+        col.className = 'event-col col-' + kid;
+
+        const colHdr = document.createElement('div');
+        colHdr.className = 'col-header ' + kid;
+        colHdr.textContent = kid === 'anya' ? 'Anya' : 'Akira';
+        col.appendChild(colHdr);
+
+        const kidEvents = day.events.filter(e => e.kid === kid);
+        if (kidEvents.length === 0) {
+          const empty = document.createElement('div');
+          empty.style.cssText = 'padding:10px 14px;font-size:.78rem;color:#ccc;font-style:italic;';
+          empty.textContent = '—';
+          col.appendChild(empty);
+        } else {
+          kidEvents.forEach(ev => {
+            const evIndex = day.events.indexOf(ev);
+            const isConflict = (ev.conflict || ev.driver === 'TBD') && (ev.driver === null || ev.driver === 'TBD');
+            const el = document.createElement('div');
+            el.className = 'event ' + ev.kid + (isConflict ? ' conflict' : '');
+            el.draggable = true;
+
+            // Drag and drop events
+            el.addEventListener('dragstart', (e) => {
+              el.classList.add('dragging');
+              e.dataTransfer.setData('text/plain', JSON.stringify({ dayIndex, eventIndex: evIndex }));
+              e.dataTransfer.effectAllowed = 'move';
+            });
+
+            el.addEventListener('dragend', () => {
+              el.classList.remove('dragging');
+              document.querySelectorAll('.event').forEach(item => item.classList.remove('drag-over'));
+            });
+
+            el.addEventListener('dragover', (e) => {
+              e.preventDefault();
+              e.dataTransfer.dropEffect = 'move';
+              const draggingInfo = JSON.parse(e.dataTransfer.getData('text/plain') || '{}');
+              // Only allow dragging within the same day and same kid column for simplicity
+              if (draggingInfo.dayIndex === dayIndex) {
+                el.classList.add('drag-over');
+              }
+            });
+
+            el.addEventListener('dragleave', () => {
+              el.classList.remove('drag-over');
+            });
+
+            el.addEventListener('drop', (e) => {
+              e.preventDefault();
+              el.classList.remove('drag-over');
+              const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+              if (data.dayIndex === dayIndex) {
+                const draggedEvent = day.events[data.eventIndex];
+                // Remove from old position
+                day.events.splice(data.eventIndex, 1);
+                // Find new index
+                const newIndex = day.events.indexOf(ev);
+                // Insert at new position
+                day.events.splice(newIndex, 0, draggedEvent);
+                saveDays();
+                renderAll();
+              }
+            });
+
+            // Delete button
+            const delBtn = document.createElement('button');
+            delBtn.className = 'event-delete';
+            delBtn.textContent = '✕';
+            delBtn.title = 'Remove this event';
+            delBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              day.events.splice(evIndex, 1);
+              saveDays();
+              renderAll();
+            });
+            el.appendChild(delBtn);
+
+            // Time (editable)
+            const timeSpan = makeEditable(ev.time, 'event-time', (val) => {
+              ev.time = val;
+              saveDays();
+              renderAll();
+            });
+            el.appendChild(timeSpan);
+
+            // Route (free text)
+            const routeSpan = makeEditable(ev.route, 'event-route', (val) => {
+              ev.route = val;
+              saveDays();
+              renderAll();
+            });
+            el.appendChild(routeSpan);
+
+            // Driver (click opens picker)
+            const driverWrap = document.createElement('span');
+            driverWrap.className = 'event-driver';
+
+            const driverSpan = document.createElement('span');
+            if (ev.driver === 'TBD') {
+              driverSpan.className = 'driver-needs-help editable';
+              driverSpan.innerHTML = '🚨 HELP NEEDED';
+            } else {
+              driverSpan.className = ev.driver ? 'driver-set editable' : 'driver-tbd';
+              driverSpan.innerHTML = ev.driver ? `👤 ${ev.driver}` : '? driver';
+            }
+            driverSpan.addEventListener('click', (e) => {
+              e.stopPropagation();
+              showDriverPicker(driverSpan, ev.driver, (selected) => {
+                ev.driver = selected;
+                saveDays();
+                renderAll();
+              });
+            });
+            driverWrap.appendChild(driverSpan);
+            el.appendChild(driverWrap);
+
+            // Note (editable)
+            if (ev.note !== undefined && ev.note !== null) {
+              const noteSpan = makeEditable(ev.note, 'event-note', (val) => {
+                ev.note = val || undefined;
+                saveDays();
+                renderAll();
+              });
+              el.appendChild(noteSpan);
+            }
+
+            col.appendChild(el);
+          });
+        }
+
+        // Add event button
+        const addBtn = document.createElement('button');
+        addBtn.className = 'add-event-btn';
+        addBtn.innerHTML = '＋ Add';
+        addBtn.addEventListener('click', () => addEvent(dayIndex, kid));
+        col.appendChild(addBtn);
+
+        cols.appendChild(col);
+      });
+      card.appendChild(cols);
+      return card;
+    }
+
+    function addEvent(dayIndex, kid) {
+      DAYS[dayIndex].events.push({
+        time: '', kid: kid, route: '', driver: null
+      });
+      saveDays();
+      renderAll();
+      showToast('New event added — click fields to fill in');
+    }
+
+    function renderAll() {
+      // 1. Render Schedule
+      const root = document.getElementById('schedule-root');
+      root.innerHTML = '';
+      WEEKS.forEach(week => {
+        const heading = document.createElement('div');
+        heading.className = 'week-heading';
+        heading.textContent = week.label;
+        root.appendChild(heading);
+
+        DAYS.filter(d => d.group === week.id).forEach(day => {
+          const dayIndex = DAYS.indexOf(day);
+          root.appendChild(buildCard(day, dayIndex));
+        });
+      });
+
+      // 2. Render Summary
+      renderSummary();
+    }
+
+    function renderSummary() {
+      const summaryRoot = document.getElementById('summary-root');
+      summaryRoot.innerHTML = '<div class="summary-grid" id="summary-grid"></div>';
+      const grid = document.getElementById('summary-grid');
+
+      const driverData = {};
+      DAYS.forEach(day => {
+        day.events.forEach(ev => {
+          if (ev.driver && ev.driver !== 'TBD') {
+            if (!driverData[ev.driver]) driverData[ev.driver] = [];
+            driverData[ev.driver].push({
+              date: day.date,
+              label: day.label,
+              time: ev.time,
+              route: ev.route,
+              kid: ev.kid
+            });
+          }
+        });
+      });
+
+      // Sort drivers by shift count (descending)
+      const sortedDrivers = Object.keys(driverData).sort((a, b) => driverData[b].length - driverData[a].length);
+
+      if (sortedDrivers.length === 0) {
+        summaryRoot.innerHTML = '<div class="day-empty">No drivers assigned yet.</div>';
+        return;
+      }
+
+      sortedDrivers.forEach(name => {
+        const card = document.createElement('div');
+        card.className = 'driver-card';
+        const shifts = driverData[name];
+
+        card.innerHTML = `
+          <h3>
+            <span>👤 ${name}</span>
+            <span class="shift-count">${shifts.length} shift${shifts.length === 1 ? '' : 's'}</span>
+          </h3>
+          <div class="shifts-list">
+            ${shifts.map(s => `
+              <div class="shift-item">
+                <span class="shift-date">${s.date} (${s.label}) · ${s.time}</span>
+                <span class="shift-detail">${s.kid === 'akira' ? '🟢' : '🔵'} ${s.route}</span>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function switchView(view) {
+      const scheduleTab = document.getElementById('tab-schedule');
+      const summaryTab = document.getElementById('tab-summary');
+      const scheduleRoot = document.getElementById('schedule-root');
+      const summaryRoot = document.getElementById('summary-root');
+
+      if (view === 'schedule') {
+        scheduleTab.classList.add('active');
+        summaryTab.classList.remove('active');
+        scheduleRoot.classList.remove('hidden');
+        summaryRoot.classList.add('hidden');
+      } else {
+        summaryTab.classList.add('active');
+        scheduleTab.classList.remove('active');
+        summaryRoot.classList.remove('hidden');
+        scheduleRoot.classList.add('hidden');
+        renderSummary(); // Refresh stats when switching
+      }
+    }
+
+
+
+    // =============================================================================
+    //  INIT
+    // =============================================================================
+
+    renderAll();
+  </script>
+</body>
+
+</html>
