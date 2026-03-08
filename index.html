@@ -585,7 +585,7 @@
     </div>
     <div class="nav-tabs">
       <div class="nav-tab active" id="tab-schedule" onclick="switchView('schedule')">Schedule</div>
-      <div class="nav-tab" id="tab-summary" onclick="switchView('summary')">Driver Stats</div>
+      <div class="nav-tab" id="tab-summary" onclick="switchView('summary')">Details</div>
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
       <div class="legend">
@@ -1169,8 +1169,10 @@
         });
       });
 
-      // Sort drivers by shift count (descending)
-      const sortedDrivers = Object.keys(driverData).sort((a, b) => driverData[b].length - driverData[a].length);
+      // Sort drivers by shift count (descending), excluding Sandhya
+      const sortedDrivers = Object.keys(driverData)
+        .filter(name => name !== 'Sandhya')
+        .sort((a, b) => driverData[b].length - driverData[a].length);
 
       if (sortedDrivers.length === 0) {
         summaryRoot.innerHTML = '<div class="day-empty">No drivers assigned yet.</div>';
