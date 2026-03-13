@@ -624,7 +624,7 @@
 
     const VOLUNTEERS = [
       "Sandhya", "Bravishma", "Swetha", "Srivats", "Sudha",
-      "Preethi Jayaraman", "Srikanth", "Preethi Srinivasan", "Vinitha", "Delli Ganesh", "Soumya"
+      "Preethi Jayaraman", "Srikanth", "Preethi Srinivasan", "Vinitha", "Delli Ganesh", "Soumya", "Eira Mom"
     ];
 
     const WEEKS = [
@@ -652,8 +652,8 @@
         label: "Friday", date: "Mar 13", group: "week1", badge: "🌸 Break starts!",
         conflicts: [],
         events: [
-          { time: "All Day", kid: "akira", route: "Home/With Soumya", driver: "Soumya" },
-          { time: "4:50", kid: "akira", route: "Work → Singing → Home", driver: "Sandhya", note: "Sandhya takes from work to singing and then home" },
+          { time: "All Day", kid: "akira", route: "Home", driver: "Soumya" },
+          { time: "4:50", kid: "akira", route: "Mattos → Singing", driver: "Sandhya", note: "Sandhya stays for class" },
           { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Srikanth" },
         ]
       },
@@ -680,10 +680,9 @@
         label: "Monday", date: "Mar 16", group: "week2", badge: "🌸 Break",
         conflicts: [],
         events: [
-          { time: "Morning", kid: "anya", route: "Home → Stratford", driver: "Sandhya", note: "Sandhya drops Anya" },
-          { time: "Morning", kid: "akira", route: "Home → Bravishma's", driver: "Sandhya", note: "Sandhya drops Akira" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Preethi Jayaraman", note: "PJ pick up" },
-          { time: "Evening", kid: "akira", route: "Bravishma's → Home", driver: "Sandhya", note: "Sandhya stays late at work" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
+          { time: "6:15", kid: "anya", route: "Home → Monday class", driver: "Sandhya" },
+          { time: "~1pm", kid: "akira", route: "Home", driver: "Sudha", note: "Village volunteer" },
         ]
       },
 
@@ -691,9 +690,10 @@
         label: "Tuesday", date: "Mar 17", group: "week2", badge: "🌸 Break",
         conflicts: [],
         events: [
-          { time: "5:00", kid: "akira", route: "Home → Piano", driver: "Sandhya" },
-          { time: "5:30", kid: "akira", route: "Piano → Home", driver: "Sandhya" },
           { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
+          { time: "~1pm", kid: "akira", route: "Dance class", driver: "Sandhya", note: "Back by 4:45" },
+          { time: "11:00", kid: "akira", route: "Dance → Eira house", driver: "Eira Mom" },
+          { time: "5:30", kid: "akira", route: "Eira → home → piano", driver: "Sandhya" },
         ]
       },
 
@@ -701,19 +701,18 @@
         label: "Wednesday", date: "Mar 18", group: "week2", badge: "🌸 Break",
         conflicts: [],
         events: [
-          { time: "Afternoon", kid: "akira", route: "TBD", driver: "TBD", note: "Find someone to hang out with her" },
-          { time: "6:00", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
+          { time: "9am", kid: "akira", route: "Bravishma House", driver: "Sandhya", note: "No RSM — free all day!" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Preethi Jayaraman" },
         ]
       },
 
       {
         label: "Thursday", date: "Mar 19", group: "week2", badge: "🌸 Break",
-        conflicts: [],
+        conflicts: ["Anya pickup at 5:50 while Akira still in Bharatanatyam until 6:15"],
         events: [
-          { time: "2:00", kid: "akira", route: "Home → Math Kangaroo", driver: "Sandhya", note: "Math Kangaroo competition" },
-          { time: "5:15", kid: "akira", route: "Home → Bharatanatyam", driver: "Sandhya" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Delli Ganesh", note: "Check if Delli can pick up" },
-          { time: "6:15", kid: "akira", route: "Bharatanatyam → Home", driver: "Sandhya" },
+          { time: "~1pm", kid: "akira", route: "Home", driver: "Sudha" },
+          { time: "2:45-4", kid: "akira", route: "Math kangaroo", driver: "Sandhya" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
         ]
       },
 
@@ -721,9 +720,10 @@
         label: "Friday", date: "Mar 20", group: "week2", badge: "🌸 Break",
         conflicts: [],
         events: [
-          { time: "5:15", kid: "akira", route: "Home → Singing", driver: "Sandhya" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Srikanth" },
-          { time: "Night", kid: "both", route: "Home → Sleepover", driver: "Sandhya" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "TBD" },
+          { time: "~1pm", kid: "akira", route: "Home", driver: "Sandhya" },
+          { time: "5:15", kid: "akira", route: "Home → Singing", driver: "Sandhya", note: "Sandhya stays for class" },
+          { time: "Evening", kid: "akira", route: "Drop off for sleepover", driver: "Bravishma" },
         ]
       },
 
