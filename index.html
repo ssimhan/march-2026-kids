@@ -723,7 +723,6 @@
         events: [
           { time: "5:15", kid: "akira", route: "Home → Singing", driver: "Sandhya" },
           { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Srikanth" },
-          { time: "Night", kid: "both", route: "Home → Sleepover", driver: "Sandhya" },
         ]
       },
 
@@ -732,10 +731,18 @@
       {
         label: "Saturday", date: "Mar 21", group: "weekend2", weekend: true, conflicts: [],
         events: [
-          { time: "Afternoon", kid: "both", route: "Sleepover → Home", driver: "Sandhya" },
+          { time: "Morning", kid: "both", route: "Balavihar", driver: "Sandhya" },
+          { time: "11:30am", kid: "both", route: "Balavihar -> Laya's house", driver: "Vini" },
+          { time: "5pm", kid: "both", route: "Laya's house -> Home", driver: "Sandhya" },
         ]
       },
-      { label: "Sunday", date: "Mar 22", group: "weekend2", weekend: true, conflicts: [], events: [] },
+      {
+        label: "Sunday", date: "Mar 22", group: "weekend2", weekend: true, conflicts: [],
+        events: [
+          { time: "Morning", kid: "both", route: "Farmer's market", driver: "Srikanth" },
+          { time: "Afternoon", kid: "both", route: "Meadowlark", driver: "Sandhya" },
+        ]
+      },
 
     ];
 
