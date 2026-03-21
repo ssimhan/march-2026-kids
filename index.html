@@ -585,6 +585,7 @@
     </div>
     <div class="nav-tabs">
       <div class="nav-tab active" id="tab-schedule" onclick="switchView('schedule')">Schedule</div>
+      <div class="nav-tab" id="tab-archive" onclick="switchView('archive')">Archive</div>
       <div class="nav-tab" id="tab-summary" onclick="switchView('summary')">Details</div>
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
@@ -605,6 +606,7 @@
 
   <div class="page-body">
     <div id="schedule-root"></div>
+    <div id="archive-root" class="hidden"></div>
     <div id="summary-root" class="hidden"></div>
     <div id="admin-actions" class="hidden"
       style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px; text-align: center;">
@@ -628,10 +630,10 @@
     ];
 
     const WEEKS = [
-      { id: "weekend0", label: "Weekend · Mar 7–8 · Past" },
-      { id: "week1", label: "Week 1 · Mar 9–13 · School week → spring break starts Friday" },
-      { id: "weekend1", label: "Weekend · Mar 14–15 · Spring break" },
-      { id: "week2", label: "Week 2 · Mar 16–20 · Spring break" },
+      { id: "weekend0", label: "Weekend · Mar 7–8 · Past", archived: true },
+      { id: "week1", label: "Week 1 · Mar 9–13 · School week → spring break starts Friday", archived: true },
+      { id: "weekend1", label: "Weekend · Mar 14–15 · Spring break", archived: true },
+      { id: "week2", label: "Week 2 · Mar 16–20 · Spring break", archived: true },
       { id: "weekend2", label: "Weekend · Mar 21–22 · Last days of break" },
     ];
 
@@ -1137,16 +1139,21 @@
     function renderAll() {
       // 1. Render Schedule
       const root = document.getElementById('schedule-root');
+      const archiveRoot = document.getElementById('archive-root');
       root.innerHTML = '';
+      archiveRoot.innerHTML = '';
+
       WEEKS.forEach(week => {
+        const targetRoot = week.archived ? archiveRoot : root;
+
         const heading = document.createElement('div');
         heading.className = 'week-heading';
         heading.textContent = week.label;
-        root.appendChild(heading);
+        targetRoot.appendChild(heading);
 
         DAYS.filter(d => d.group === week.id).forEach(day => {
           const dayIndex = DAYS.indexOf(day);
-          root.appendChild(buildCard(day, dayIndex));
+          targetRoot.appendChild(buildCard(day, dayIndex));
         });
       });
 
@@ -1210,23 +1217,29 @@
 
     function switchView(view) {
       const scheduleTab = document.getElementById('tab-schedule');
+      const archiveTab = document.getElementById('tab-archive');
       const summaryTab = document.getElementById('tab-summary');
       const scheduleRoot = document.getElementById('schedule-root');
+      const archiveRoot = document.getElementById('archive-root');
       const summaryRoot = document.getElementById('summary-root');
 
       const adminActions = document.getElementById('admin-actions');
 
+      // Reset all
+      [scheduleTab, archiveTab, summaryTab].forEach(t => t.classList.remove('active'));
+      [scheduleRoot, archiveRoot, summaryRoot].forEach(r => r.classList.add('hidden'));
+
       if (view === 'schedule') {
         scheduleTab.classList.add('active');
-        summaryTab.classList.remove('active');
         scheduleRoot.classList.remove('hidden');
-        summaryRoot.classList.add('hidden');
+        adminActions.classList.add('hidden');
+      } else if (view === 'archive') {
+        archiveTab.classList.add('active');
+        archiveRoot.classList.remove('hidden');
         adminActions.classList.add('hidden');
       } else {
         summaryTab.classList.add('active');
-        scheduleTab.classList.remove('active');
         summaryRoot.classList.remove('hidden');
-        scheduleRoot.classList.add('hidden');
         adminActions.classList.remove('hidden');
         renderSummary(); // Refresh stats when switching
       }
