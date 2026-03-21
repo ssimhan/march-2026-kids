@@ -635,6 +635,7 @@
       { id: "weekend1", label: "Weekend · Mar 14–15 · Spring break", archived: true },
       { id: "week2", label: "Week 2 · Mar 16–20 · Spring break", archived: true },
       { id: "weekend2", label: "Weekend · Mar 21–22 · Last days of break" },
+      { id: "week3", label: "Week 3 · Mar 23–27 · Back to school" },
     ];
 
     const DEFAULT_DAYS = [
@@ -748,7 +749,7 @@
         label: "Saturday", date: "Mar 21", group: "weekend2", weekend: true, conflicts: [],
         events: [
           { time: "Morning", kid: "both", route: "Balavihar", driver: "Sandhya" },
-          { time: "11:30am", kid: "both", route: "Balavihar -> Laya's house", driver: "Vini" },
+          { time: "12pm - 5pm", kid: "both", route: "Watched by Vini", driver: "Vini" },
           { time: "5pm", kid: "both", route: "Laya's house -> Home", driver: "Sandhya" },
         ]
       },
@@ -757,6 +758,45 @@
         events: [
           { time: "Morning", kid: "both", route: "Farmer's market", driver: "Srikanth" },
           { time: "Afternoon", kid: "both", route: "Meadowlark", driver: "Sandhya" },
+        ]
+      },
+
+      // ── WEEK 3 (Back to school) ────────────────────────────────────────────────
+      {
+        label: "Monday", date: "Mar 23", group: "week3",
+        conflicts: [],
+        events: [
+          { time: "Afternoon", kid: "both", route: "Pick up from school", driver: "Sandhya" },
+        ]
+      },
+      {
+        label: "Tuesday", date: "Mar 24", group: "week3",
+        conflicts: [],
+        events: [
+          { time: "Afternoon", kid: "both", route: "Pick up from school", driver: "Sandhya" },
+        ]
+      },
+      {
+        label: "Wednesday", date: "Mar 25", group: "week3",
+        conflicts: [],
+        events: [
+          { time: "Afternoon", kid: "akira", route: "Mattos → RSM", driver: "TBD" },
+          { time: "Evening", kid: "akira", route: "RSM → Home", driver: "Sandhya" },
+          { time: "Evening", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
+        ]
+      },
+      {
+        label: "Thursday", date: "Mar 26", group: "week3",
+        conflicts: [],
+        events: [
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "TBD" },
+        ]
+      },
+      {
+        label: "Friday", date: "Mar 27", group: "week3",
+        conflicts: [],
+        events: [
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Srikanth", note: "likely Srikanth" },
         ]
       },
 
