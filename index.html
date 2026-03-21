@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Family Schedule · Mar 8–22</title>
+  <title>Family Schedule · Mar 7–22</title>
   <style>
     :root {
       --akira: #2A9D8F;
@@ -580,7 +580,7 @@
 
   <div class="page-header">
     <div>
-      <h1>📅 Family Schedule · Mar 9–22, 2026</h1>
+      <h1>📅 Family Schedule · Mar 7–22, 2026</h1>
       <p>Sandhya handles all drop-offs · Click any field to edit</p>
     </div>
     <div class="nav-tabs">
@@ -628,6 +628,7 @@
     ];
 
     const WEEKS = [
+      { id: "weekend0", label: "Weekend · Mar 7–8 · Past" },
       { id: "week1", label: "Week 1 · Mar 9–13 · School week → spring break starts Friday" },
       { id: "weekend1", label: "Weekend · Mar 14–15 · Spring break" },
       { id: "week2", label: "Week 2 · Mar 16–20 · Spring break" },
@@ -635,6 +636,19 @@
     ];
 
     const DEFAULT_DAYS = [
+
+      {
+        label: "Saturday", date: "Mar 7", group: "weekend0", weekend: true, conflicts: [],
+        events: [
+          { time: "All Day", kid: "both", route: "Watched by Lathu Chithi, Srivats, Swetha", driver: "Swetha", note: "Swetha did sleepover" },
+        ]
+      },
+      {
+        label: "Sunday", date: "Mar 8", group: "weekend0", weekend: true, conflicts: [],
+        events: [
+          { time: "Until 5pm", kid: "both", route: "Watched by Swetha", driver: "Swetha" },
+        ]
+      },
 
       // ── WEEK 1 ────────────────────────────────────────────────────────────────
 
