@@ -655,15 +655,19 @@
       {
         label: "Saturday", date: "Mar 7", group: "weekend0", weekend: true, conflicts: [],
         events: [
-          { time: "Lunch", kid: "both", route: "Lunch", driver: "Lathu Chithi" },
-          { time: "Afternoon", kid: "both", route: "Afternoon", driver: "Srivats" },
-          { time: "Sleepover", kid: "both", route: "Sleepover", driver: "Swetha" },
+          { time: "Lunch", kid: "anya", route: "Lunch", driver: "Lathu Chithi" },
+          { time: "Afternoon", kid: "anya", route: "Afternoon", driver: "Srivats" },
+          { time: "Sleepover", kid: "anya", route: "Sleepover", driver: "Swetha" },
+          { time: "Lunch", kid: "akira", route: "Lunch", driver: "Lathu Chithi" },
+          { time: "Afternoon", kid: "akira", route: "Afternoon", driver: "Srivats" },
+          { time: "Sleepover", kid: "akira", route: "Sleepover", driver: "Swetha" },
         ]
       },
       {
         label: "Sunday", date: "Mar 8", group: "weekend0", weekend: true, conflicts: [],
         events: [
-          { time: "Until 5pm", kid: "both", route: "Watched by Swetha", driver: "Swetha" },
+          { time: "Until 5pm", kid: "anya", route: "Watched by Swetha", driver: "Swetha" },
+          { time: "Until 5pm", kid: "akira", route: "Watched by Swetha", driver: "Swetha" },
         ]
       },
 
@@ -724,14 +728,17 @@
       {
         label: "Saturday", date: "Mar 14", group: "weekend1", weekend: true, conflicts: [],
         events: [
-          { time: "Morning", kid: "both", route: "Balavihar", driver: "Sandhya" },
-          { time: "Afternoon", kid: "both", route: "Laya birthday party", driver: "Delli Ganesh", note: "Need to see if someone else can take them" },
+          { time: "Morning", kid: "anya", route: "Balavihar", driver: "Sandhya" },
+          { time: "Afternoon", kid: "anya", route: "Laya birthday party", driver: "Delli Ganesh", note: "Need to see if someone else can take them" },
+          { time: "Morning", kid: "akira", route: "Balavihar", driver: "Sandhya" },
+          { time: "Afternoon", kid: "akira", route: "Laya birthday party", driver: "Delli Ganesh", note: "Need to see if someone else can take them" },
         ]
       },
       {
         label: "Sunday", date: "Mar 15", group: "weekend1", weekend: true, conflicts: [],
         events: [
-          { time: "TBD", kid: "both", route: "Meadowlark", driver: "Sandhya", note: "Promised ages ago" },
+          { time: "TBD", kid: "anya", route: "Meadowlark", driver: "Sandhya", note: "Promised ages ago" },
+          { time: "TBD", kid: "akira", route: "Meadowlark", driver: "Sandhya", note: "Promised ages ago" },
         ]
       },
 
@@ -792,16 +799,21 @@
       {
         label: "Saturday", date: "Mar 21", group: "weekend2", weekend: true, conflicts: [],
         events: [
-          { time: "Morning", kid: "both", route: "Balavihar", driver: "Sandhya" },
-          { time: "12pm - 5pm", kid: "both", route: "Watched by Vini", driver: "Vini" },
-          { time: "5pm", kid: "both", route: "Laya's house -> Home", driver: "Sandhya" },
+          { time: "Morning", kid: "anya", route: "Balavihar", driver: "Sandhya" },
+          { time: "12pm - 5pm", kid: "anya", route: "Watched by Vini", driver: "Vini" },
+          { time: "5pm", kid: "anya", route: "Laya's house -> Home", driver: "Sandhya" },
+          { time: "Morning", kid: "akira", route: "Balavihar", driver: "Sandhya" },
+          { time: "12pm - 5pm", kid: "akira", route: "Watched by Vini", driver: "Vini" },
+          { time: "5pm", kid: "akira", route: "Laya's house -> Home", driver: "Sandhya" },
         ]
       },
       {
         label: "Sunday", date: "Mar 22", group: "weekend2", weekend: true, conflicts: [],
         events: [
-          { time: "Morning", kid: "both", route: "Farmer's market", driver: "Srikanth" },
-          { time: "Afternoon", kid: "both", route: "Meadowlark", driver: "Sandhya" },
+          { time: "Morning", kid: "anya", route: "Farmer's market", driver: "Srikanth" },
+          { time: "Afternoon", kid: "anya", route: "Meadowlark", driver: "Sandhya" },
+          { time: "Morning", kid: "akira", route: "Farmer's market", driver: "Srikanth" },
+          { time: "Afternoon", kid: "akira", route: "Meadowlark", driver: "Sandhya" },
         ]
       },
 
@@ -1075,7 +1087,7 @@
         colHdr.textContent = kid === 'anya' ? 'Anya' : 'Akira';
         col.appendChild(colHdr);
 
-        const kidEvents = day.events.filter(e => e.kid === kid || e.kid === 'both');
+        const kidEvents = day.events.filter(e => e.kid === kid);
         if (kidEvents.length === 0) {
           const empty = document.createElement('div');
           empty.style.cssText = 'padding:10px 14px;font-size:.78rem;color:#ccc;font-style:italic;';
