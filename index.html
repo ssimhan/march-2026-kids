@@ -186,8 +186,16 @@
       border-color: #e8a09a;
     }
 
+    .day-card.is-weekend .day-header {
+      background: #7B68EE; /* MediumSlateBlue */
+    }
+
+    .day-card.is-weekend .day-name {
+      color: white;
+    }
+
     .day-card.is-weekend {
-      opacity: 0.45;
+      border-color: #B0A1F1;
     }
 
     /* Day header */
@@ -1061,7 +1069,7 @@
         colHdr.textContent = kid === 'anya' ? 'Anya' : 'Akira';
         col.appendChild(colHdr);
 
-        const kidEvents = day.events.filter(e => e.kid === kid);
+        const kidEvents = day.events.filter(e => e.kid === kid || e.kid === 'both');
         if (kidEvents.length === 0) {
           const empty = document.createElement('div');
           empty.style.cssText = 'padding:10px 14px;font-size:.78rem;color:#ccc;font-style:italic;';
