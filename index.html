@@ -651,7 +651,9 @@
       {
         label: "Saturday", date: "Mar 7", group: "weekend0", weekend: true, conflicts: [],
         events: [
-          { time: "All Day", kid: "both", route: "Watched by Lathu Chithi, Srivats, Swetha", driver: "Swetha", note: "Swetha did sleepover" },
+          { time: "Lunch", kid: "both", route: "Lunch", driver: "Lathu Chithi" },
+          { time: "Afternoon", kid: "both", route: "Afternoon", driver: "Srivats" },
+          { time: "Sleepover", kid: "both", route: "Sleepover", driver: "Swetha" },
         ]
       },
       {
@@ -1284,7 +1286,7 @@
             ${shifts.map(s => `
               <div class="shift-item">
                 <span class="shift-date">${s.date} (${s.label}) · ${s.time}</span>
-                <span class="shift-detail">${s.kid === 'akira' ? '🟢' : '🔵'} ${s.route}</span>
+                <span class="shift-detail">${s.kid === 'both' ? '🟢🔵' : (s.kid === 'akira' ? '🟢' : '🔵')} ${s.route}</span>
               </div>
             `).join('')}
           </div>
