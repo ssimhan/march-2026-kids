@@ -622,6 +622,10 @@
         style="background: none; border: 1px solid #ccc; color: #888; padding: 8px 16px; border-radius: 6px; font-size: 0.7rem; cursor: pointer;">
         Discard Browser Edits & Sync with GitHub
       </button>
+      <button onclick="copyToAssistant()"
+        style="background: var(--akira); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: 600; margin-left: 10px;">
+        Export for Antigravity (Syncs my edits to GitHub)
+      </button>
     </div>
   </div>
 
@@ -720,8 +724,8 @@
       {
         label: "Saturday", date: "Mar 14", group: "weekend1", weekend: true, conflicts: [],
         events: [
-          { time: "Morning", kid: "both", route: "Balavihar", driver: "TBD" },
-          { time: "Afternoon", kid: "both", route: "Laya birthday party", driver: "TBD", note: "Need to see if someone else can take them" },
+          { time: "Morning", kid: "both", route: "Balavihar", driver: "Sandhya" },
+          { time: "Afternoon", kid: "both", route: "Laya birthday party", driver: "Delli Ganesh", note: "Need to see if someone else can take them" },
         ]
       },
       {
@@ -1330,6 +1334,18 @@
         localStorage.removeItem(STORAGE_KEY);
         location.reload();
       }
+    }
+
+    function copyToAssistant() {
+      const dataStr = JSON.stringify(DAYS, null, 2);
+      const textToCopy = `// UPDATED SCHEDULE DATA FROM BROWSER\n// Please update DEFAULT_DAYS in index.html with the following:\n\n${dataStr}`;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showToast('Code copied! Paste it to Antigravity to sync.');
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Could not copy to clipboard. Check console.');
+      });
     }
 
 
