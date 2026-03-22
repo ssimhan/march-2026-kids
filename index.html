@@ -187,7 +187,8 @@
     }
 
     .day-card.is-weekend .day-header {
-      background: #7B68EE; /* MediumSlateBlue */
+      background: #7B68EE;
+      /* MediumSlateBlue */
     }
 
     .day-card.is-weekend .day-name {
@@ -848,13 +849,15 @@
         conflicts: [],
         events: [
           { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "TBD" },
+          { time: "5:00", kid: "akira", route: "Bnat", driver: "Sandhya" }
         ]
       },
       {
         label: "Friday", date: "Mar 27", group: "week3",
         conflicts: [],
         events: [
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Srikanth", note: "likely Srikanth" },
+          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "TBD" },
+          { time: "5:00", kid: "akira", route: "Singing", driver: "Sandhya" }
         ]
       },
 
@@ -1351,11 +1354,15 @@
     }
 
     function copyToAssistant() {
-      const dataStr = JSON.stringify(DAYS, null, 2);
-      const textToCopy = `// UPDATED SCHEDULE DATA FROM BROWSER\n// Please update DEFAULT_DAYS in index.html with the following:\n\n${dataStr}`;
+      // Filter for only active (non-archived) weeks
+      const activeWeekIds = WEEKS.filter(w => !w.archived).map(w => w.id);
+      const activeDays = DAYS.filter(d => activeWeekIds.includes(d.group));
+
+      const dataStr = JSON.stringify(activeDays, null, 2);
+      const textToCopy = `// UPDATED ACTIVE SCHEDULE DATA FROM BROWSER\n// Please update the corresponding entries in DEFAULT_DAYS with the following:\n\n${dataStr}`;
 
       navigator.clipboard.writeText(textToCopy).then(() => {
-        showToast('Code copied! Paste it to Antigravity to sync.');
+        showToast('Active schedule copied! Paste it to Antigravity to sync.');
       }).catch(err => {
         console.error('Failed to copy: ', err);
         alert('Could not copy to clipboard. Check console.');
