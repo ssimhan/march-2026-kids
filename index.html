@@ -652,215 +652,553 @@
     ];
 
     const DEFAULT_DAYS = [
-
       {
-        label: "Saturday", date: "Mar 7", group: "weekend0", weekend: true, conflicts: [],
-        events: [
-          { time: "Lunch", kid: "anya", route: "Lunch", driver: "Lathu Chithi" },
-          { time: "Afternoon", kid: "anya", route: "Afternoon", driver: "Srivats" },
-          { time: "Sleepover", kid: "anya", route: "Sleepover", driver: "Swetha" },
-          { time: "Lunch", kid: "akira", route: "Lunch", driver: "Lathu Chithi" },
-          { time: "Afternoon", kid: "akira", route: "Afternoon", driver: "Srivats" },
-          { time: "Sleepover", kid: "akira", route: "Sleepover", driver: "Swetha" },
+        "label": "Saturday",
+        "date": "Mar 7",
+        "group": "weekend0",
+        "weekend": true,
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Lunch",
+            "kid": "anya",
+            "route": "Lunch",
+            "driver": "Lathu Chithi"
+          },
+          {
+            "time": "Afternoon",
+            "kid": "anya",
+            "route": "Afternoon",
+            "driver": "Srivats"
+          },
+          {
+            "time": "Sleepover",
+            "kid": "anya",
+            "route": "Sleepover",
+            "driver": "Swetha"
+          },
+          {
+            "time": "Lunch",
+            "kid": "akira",
+            "route": "Lunch",
+            "driver": "Lathu Chithi"
+          },
+          {
+            "time": "Afternoon",
+            "kid": "akira",
+            "route": "Afternoon",
+            "driver": "Srivats"
+          },
+          {
+            "time": "Sleepover",
+            "kid": "akira",
+            "route": "Sleepover",
+            "driver": "Swetha"
+          }
         ]
       },
       {
-        label: "Sunday", date: "Mar 8", group: "weekend0", weekend: true, conflicts: [],
-        events: [
-          { time: "Until 5pm", kid: "anya", route: "Watched by Swetha", driver: "Swetha" },
-          { time: "Until 5pm", kid: "akira", route: "Watched by Swetha", driver: "Swetha" },
-        ]
-      },
-
-      // ── WEEK 1 ────────────────────────────────────────────────────────────────
-
-      {
-        label: "Monday", date: "Mar 9", group: "week1",
-        conflicts: [],
-        events: [
-          { time: "Afternoon", kid: "akira", route: "Mattos → Home", driver: "Srikanth" },
-          { time: "5:50", kid: "anya", route: "Stratford → Class", driver: null },
-          { time: "6:15", kid: "anya", route: "Class → Home", driver: "Sandhya" },
-        ]
-      },
-
-      {
-        label: "Tuesday", date: "Mar 10", group: "week1",
-        conflicts: [],
-        events: [
-          { time: "4:50", kid: "akira", route: "Mattos → Piano", driver: "Sandhya" },
-          { time: "5:30", kid: "akira", route: "Piano → Home", driver: "Sandhya" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
-        ]
-      },
-
-      {
-        label: "Wednesday", date: "Mar 11", group: "week1",
-        conflicts: [],
-        events: [
-          { time: "3:30", kid: "akira", route: "Mattos → RSM", driver: "Delli Ganesh" },
-          { time: "5:30", kid: "anya", route: "Stratford → Home", driver: "Preethi Jayaraman" },
-          { time: "5:50", kid: "akira", route: "RSM → Home", driver: "Sandhya" },
-        ]
-      },
-
-      {
-        label: "Thursday", date: "Mar 12", group: "week1",
-        conflicts: [],
-        events: [
-          { time: "4:50", kid: "akira", route: "Mattos → Bharatanatyam", driver: "Sandhya" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Delli Ganesh" },
-          { time: "6:15", kid: "akira", route: "Bharatanatyam → Home", driver: "Sandhya" },
-        ]
-      },
-
-      {
-        label: "Friday", date: "Mar 13", group: "week1", badge: "🌸 Break starts!",
-        conflicts: [],
-        events: [
-          { time: "All Day", kid: "akira", route: "Home/With Soumya", driver: "Soumya" },
-          { time: "4:50", kid: "akira", route: "Work → Singing → Home", driver: "Sandhya", note: "Sandhya takes from work to singing and then home" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Srikanth" },
-        ]
-      },
-
-      // ── WEEKEND 1 ─────────────────────────────────────────────────────────────
-
-      {
-        label: "Saturday", date: "Mar 14", group: "weekend1", weekend: true, conflicts: [],
-        events: [
-          { time: "Morning", kid: "anya", route: "Balavihar", driver: "Sandhya" },
-          { time: "Afternoon", kid: "anya", route: "Laya birthday party", driver: "Delli Ganesh", note: "Need to see if someone else can take them" },
-          { time: "Morning", kid: "akira", route: "Balavihar", driver: "Sandhya" },
-          { time: "Afternoon", kid: "akira", route: "Laya birthday party", driver: "Delli Ganesh", note: "Need to see if someone else can take them" },
+        "label": "Sunday",
+        "date": "Mar 8",
+        "group": "weekend0",
+        "weekend": true,
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Until 5pm",
+            "kid": "anya",
+            "route": "Watched by Swetha",
+            "driver": "Swetha"
+          },
+          {
+            "time": "Until 5pm",
+            "kid": "akira",
+            "route": "Watched by Swetha",
+            "driver": "Swetha"
+          }
         ]
       },
       {
-        label: "Sunday", date: "Mar 15", group: "weekend1", weekend: true, conflicts: [],
-        events: [
-          { time: "TBD", kid: "anya", route: "Meadowlark", driver: "Sandhya", note: "Promised ages ago" },
-          { time: "TBD", kid: "akira", route: "Meadowlark", driver: "Sandhya", note: "Promised ages ago" },
-        ]
-      },
-
-      // ── WEEK 2 (spring break) ─────────────────────────────────────────────────
-
-      {
-        label: "Monday", date: "Mar 16", group: "week2", badge: "🌸 Break",
-        conflicts: [],
-        events: [
-          { time: "Morning", kid: "anya", route: "Home → Stratford", driver: "Sandhya", note: "Sandhya drops Anya" },
-          { time: "Morning", kid: "akira", route: "Home → Bravishma's", driver: "Sandhya", note: "Sandhya drops Akira" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Preethi Jayaraman", note: "PJ pick up" },
-          { time: "Evening", kid: "akira", route: "Bravishma's → Home", driver: "Sandhya", note: "Sandhya stays late at work" },
-        ]
-      },
-
-      {
-        label: "Tuesday", date: "Mar 17", group: "week2", badge: "🌸 Break",
-        conflicts: [],
-        events: [
-          { time: "5:00", kid: "akira", route: "Home → Piano", driver: "Sandhya" },
-          { time: "5:30", kid: "akira", route: "Piano → Home", driver: "Sandhya" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
-        ]
-      },
-
-      {
-        label: "Wednesday", date: "Mar 18", group: "week2", badge: "🌸 Break",
-        conflicts: [],
-        events: [
-          { time: "Afternoon", kid: "akira", route: "TBD", driver: "TBD", note: "Find someone to hang out with her" },
-          { time: "6:00", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
-        ]
-      },
-
-      {
-        label: "Thursday", date: "Mar 19", group: "week2", badge: "🌸 Break",
-        conflicts: [],
-        events: [
-          { time: "2:00", kid: "akira", route: "Home → Math Kangaroo", driver: "Sandhya", note: "Math Kangaroo competition" },
-          { time: "5:15", kid: "akira", route: "Home → Bharatanatyam", driver: "Sandhya" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Delli Ganesh", note: "Check if Delli can pick up" },
-          { time: "6:15", kid: "akira", route: "Bharatanatyam → Home", driver: "Sandhya" },
-        ]
-      },
-
-      {
-        label: "Friday", date: "Mar 20", group: "week2", badge: "🌸 Break",
-        conflicts: [],
-        events: [
-          { time: "5:15", kid: "akira", route: "Home → Singing", driver: "Sandhya" },
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "Srikanth" },
-        ]
-      },
-
-      // ── WEEKEND 2 ─────────────────────────────────────────────────────────────
-
-      {
-        label: "Saturday", date: "Mar 21", group: "weekend2", weekend: true, conflicts: [],
-        events: [
-          { time: "Morning", kid: "anya", route: "Balavihar", driver: "Sandhya" },
-          { time: "12pm - 5pm", kid: "anya", route: "Watched by Vini", driver: "Vini" },
-          { time: "5pm", kid: "anya", route: "Laya's house -> Home", driver: "Sandhya" },
-          { time: "Morning", kid: "akira", route: "Balavihar", driver: "Sandhya" },
-          { time: "12pm - 5pm", kid: "akira", route: "Watched by Vini", driver: "Vini" },
-          { time: "5pm", kid: "akira", route: "Laya's house -> Home", driver: "Sandhya" },
+        "label": "Monday",
+        "date": "Mar 9",
+        "group": "week1",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Afternoon",
+            "kid": "akira",
+            "route": "Mattos → Home",
+            "driver": "Srikanth"
+          },
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Class",
+            "driver": null
+          },
+          {
+            "time": "6:15",
+            "kid": "anya",
+            "route": "Class → Home",
+            "driver": "Sandhya"
+          }
         ]
       },
       {
-        label: "Sunday", date: "Mar 22", group: "weekend2", weekend: true, conflicts: [],
-        events: [
-          { time: "Morning", kid: "anya", route: "Farmer's market", driver: "Srikanth" },
-          { time: "Afternoon", kid: "anya", route: "Meadowlark", driver: "Sandhya" },
-          { time: "Morning", kid: "akira", route: "Farmer's market", driver: "Srikanth" },
-          { time: "Afternoon", kid: "akira", route: "Meadowlark", driver: "Sandhya" },
-        ]
-      },
-
-      // ── WEEK 3 (Back to school) ────────────────────────────────────────────────
-      {
-        label: "Monday", date: "Mar 23", group: "week3",
-        conflicts: [],
-        events: [
-          { time: "Afternoon", kid: "anya", route: "Pick up from school", driver: "Sandhya" },
-          { time: "Afternoon", kid: "akira", route: "Pick up from school", driver: "Sandhya" },
-        ]
-      },
-      {
-        label: "Tuesday", date: "Mar 24", group: "week3",
-        conflicts: [],
-        events: [
-          { time: "Afternoon", kid: "anya", route: "Pick up from school", driver: "Sandhya" },
-          { time: "Afternoon", kid: "akira", route: "Pick up from school", driver: "Sandhya" },
-        ]
-      },
-      {
-        label: "Wednesday", date: "Mar 25", group: "week3",
-        conflicts: [],
-        events: [
-          { time: "Afternoon", kid: "akira", route: "Mattos → RSM", driver: "TBD" },
-          { time: "Evening", kid: "akira", route: "RSM → Home", driver: "Sandhya" },
-          { time: "Evening", kid: "anya", route: "Stratford → Home", driver: "Sandhya" },
+        "label": "Tuesday",
+        "date": "Mar 10",
+        "group": "week1",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "4:50",
+            "kid": "akira",
+            "route": "Mattos → Piano",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "5:30",
+            "kid": "akira",
+            "route": "Piano → Home",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Sandhya"
+          }
         ]
       },
       {
-        label: "Thursday", date: "Mar 26", group: "week3",
-        conflicts: [],
-        events: [
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "TBD" },
-          { time: "5:00", kid: "akira", route: "Bnat", driver: "Sandhya" }
+        "label": "Wednesday",
+        "date": "Mar 11",
+        "group": "week1",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "3:30",
+            "kid": "akira",
+            "route": "Mattos → RSM",
+            "driver": "Delli Ganesh"
+          },
+          {
+            "time": "5:30",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Preethi Jayaraman"
+          },
+          {
+            "time": "5:50",
+            "kid": "akira",
+            "route": "RSM → Home",
+            "driver": "Sandhya"
+          }
         ]
       },
       {
-        label: "Friday", date: "Mar 27", group: "week3",
-        conflicts: [],
-        events: [
-          { time: "5:50", kid: "anya", route: "Stratford → Home", driver: "TBD" },
-          { time: "5:00", kid: "akira", route: "Singing", driver: "Sandhya" }
+        "label": "Thursday",
+        "date": "Mar 12",
+        "group": "week1",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "4:50",
+            "kid": "akira",
+            "route": "Mattos → Bharatanatyam",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Delli Ganesh"
+          },
+          {
+            "time": "6:15",
+            "kid": "akira",
+            "route": "Bharatanatyam → Home",
+            "driver": "Sandhya"
+          }
         ]
       },
-
+      {
+        "label": "Friday",
+        "date": "Mar 13",
+        "group": "week1",
+        "badge": "🌸 Break starts!",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "All Day",
+            "kid": "akira",
+            "route": "Home/With Soumya",
+            "driver": "Soumya"
+          },
+          {
+            "time": "4:50",
+            "kid": "akira",
+            "route": "Work → Singing → Home",
+            "driver": "Sandhya",
+            "note": "Sandhya takes from work to singing and then home"
+          },
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Srikanth"
+          }
+        ]
+      },
+      {
+        "label": "Saturday",
+        "date": "Mar 14",
+        "group": "weekend1",
+        "weekend": true,
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Morning",
+            "kid": "anya",
+            "route": "Balavihar",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "Afternoon",
+            "kid": "anya",
+            "route": "Laya birthday party",
+            "driver": "Delli Ganesh",
+            "note": "Need to see if someone else can take them"
+          },
+          {
+            "time": "Morning",
+            "kid": "akira",
+            "route": "Balavihar",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "Afternoon",
+            "kid": "akira",
+            "route": "Laya birthday party",
+            "driver": "Delli Ganesh",
+            "note": "Need to see if someone else can take them"
+          }
+        ]
+      },
+      {
+        "label": "Sunday",
+        "date": "Mar 15",
+        "group": "weekend1",
+        "weekend": true,
+        "conflicts": [],
+        "events": [
+          {
+            "time": "TBD",
+            "kid": "anya",
+            "route": "Meadowlark",
+            "driver": "Sandhya",
+            "note": "Promised ages ago"
+          },
+          {
+            "time": "TBD",
+            "kid": "akira",
+            "route": "Meadowlark",
+            "driver": "Sandhya",
+            "note": "Promised ages ago"
+          }
+        ]
+      },
+      {
+        "label": "Monday",
+        "date": "Mar 16",
+        "group": "week2",
+        "badge": "🌸 Break",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Morning",
+            "kid": "anya",
+            "route": "Home → Stratford",
+            "driver": "Sandhya",
+            "note": "Sandhya drops Anya"
+          },
+          {
+            "time": "Morning",
+            "kid": "akira",
+            "route": "Home → Bravishma's",
+            "driver": "Sandhya",
+            "note": "Sandhya drops Akira"
+          },
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Preethi Jayaraman",
+            "note": "PJ pick up"
+          },
+          {
+            "time": "Evening",
+            "kid": "akira",
+            "route": "Bravishma's → Home",
+            "driver": "Sandhya",
+            "note": "Sandhya stays late at work"
+          }
+        ]
+      },
+      {
+        "label": "Tuesday",
+        "date": "Mar 17",
+        "group": "week2",
+        "badge": "🌸 Break",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "5:00",
+            "kid": "akira",
+            "route": "Home → Piano",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "5:30",
+            "kid": "akira",
+            "route": "Piano → Home",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Sandhya"
+          }
+        ]
+      },
+      {
+        "label": "Wednesday",
+        "date": "Mar 18",
+        "group": "week2",
+        "badge": "🌸 Break",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Afternoon",
+            "kid": "akira",
+            "route": "TBD",
+            "driver": "TBD",
+            "note": "Find someone to hang out with her"
+          },
+          {
+            "time": "6:00",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Sandhya"
+          }
+        ]
+      },
+      {
+        "label": "Thursday",
+        "date": "Mar 19",
+        "group": "week2",
+        "badge": "🌸 Break",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "2:00",
+            "kid": "akira",
+            "route": "Home → Math Kangaroo",
+            "driver": "Sandhya",
+            "note": "Math Kangaroo competition"
+          },
+          {
+            "time": "5:15",
+            "kid": "akira",
+            "route": "Home → Bharatanatyam",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Delli Ganesh",
+            "note": "Check if Delli can pick up"
+          },
+          {
+            "time": "6:15",
+            "kid": "akira",
+            "route": "Bharatanatyam → Home",
+            "driver": "Sandhya"
+          }
+        ]
+      },
+      {
+        "label": "Friday",
+        "date": "Mar 20",
+        "group": "week2",
+        "badge": "🌸 Break",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "5:15",
+            "kid": "akira",
+            "route": "Home → Singing",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Srikanth"
+          }
+        ]
+      },
+      {
+        "label": "Saturday",
+        "date": "Mar 21",
+        "group": "weekend2",
+        "weekend": true,
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Morning",
+            "kid": "anya",
+            "route": "Balavihar",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "12pm - 5pm",
+            "kid": "anya",
+            "route": "Hanging out with Laya",
+            "driver": "Vini"
+          },
+          {
+            "time": "Morning",
+            "kid": "akira",
+            "route": "Balavihar",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "12pm - 5pm",
+            "kid": "akira",
+            "route": "Hanging out with Laya",
+            "driver": "Vini"
+          }
+        ]
+      },
+      {
+        "label": "Sunday",
+        "date": "Mar 22",
+        "group": "weekend2",
+        "weekend": true,
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Morning",
+            "kid": "anya",
+            "route": "Farmer's market",
+            "driver": "Srikanth"
+          },
+          {
+            "time": "Morning",
+            "kid": "akira",
+            "route": "Farmer's market",
+            "driver": "Srikanth"
+          }
+        ]
+      },
+      {
+        "label": "Monday",
+        "date": "Mar 23",
+        "group": "week3",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Afternoon",
+            "kid": "anya",
+            "route": "School -> Dentist",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "Afternoon",
+            "kid": "akira",
+            "route": "School -> Dentist",
+            "driver": "Sandhya"
+          }
+        ]
+      },
+      {
+        "label": "Tuesday",
+        "date": "Mar 24",
+        "group": "week3",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Afternoon",
+            "kid": "anya",
+            "route": "Pick up from school",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "Afternoon",
+            "kid": "akira",
+            "route": "Pick up from school",
+            "driver": "Sandhya"
+          }
+        ]
+      },
+      {
+        "label": "Wednesday",
+        "date": "Mar 25",
+        "group": "week3",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "Afternoon",
+            "kid": "akira",
+            "route": "Mattos → RSM",
+            "driver": "TBD"
+          },
+          {
+            "time": "Evening",
+            "kid": "akira",
+            "route": "RSM → Home",
+            "driver": "Sandhya"
+          },
+          {
+            "time": "Evening",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Sandhya"
+          }
+        ]
+      },
+      {
+        "label": "Thursday",
+        "date": "Mar 26",
+        "group": "week3",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "TBD"
+          }
+        ]
+      },
+      {
+        "label": "Friday",
+        "date": "Mar 27",
+        "group": "week3",
+        "conflicts": [],
+        "events": [
+          {
+            "time": "5:50",
+            "kid": "anya",
+            "route": "Stratford → Home",
+            "driver": "Srikanth",
+            "note": "likely Srikanth"
+          }
+        ]
+      }
     ];
 
     // =============================================================================
